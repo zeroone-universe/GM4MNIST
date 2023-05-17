@@ -11,17 +11,15 @@ class MNISTDataModule(pl.LightningDataModule):
         self.batch_size = hparams.datamodule.batch_size
         
         if hparams.datamodule.resize32:
-            self.transform = transforms.Compose([
-                transforms.Resize((32,32)),
-                transforms.ToTensor(),
-                transforms.Normalize([0.5], [0.5])
-            ])
-        
+            self.transform = [transforms.Resize((32,32)), transforms.ToTensor(),]
+                
         else:
-            self.transform = transforms.Compose([
-                transforms.ToTensor(),
-                transforms.Normalize([0.5], [0.5])
-            ])
+            self.transform = [transforms.ToTensor(),]
+            
+        if hparams.datamodule.scaling:
+            self.transform.append(transforms.Normalize((0.5,), (0.5,)))
+            
+        self.transform = transforms.Compose(self.transform)
         
         self.prepare_data_per_node = True
         self.allow_zero_length_dataloader_with_multiple_devices = False

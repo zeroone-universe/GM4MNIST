@@ -11,13 +11,14 @@ import torch
 import torch.nn as nn
 
 class Generator(nn.Module):
-    def __init__(self, latent_dim, img_shape):
+    def __init__(self, latent_dim):
         super().__init__()
         
+        self.latent_dim = latent_dim
         self.label_embed = nn.Embedding(10, 10)
         
         self.CTin_z = nn.Sequential(
-            nn.ConvTranspose2d(in_channels = 100, out_channels = 256, kernel_size = 4, stride = 1, padding = 0),
+            nn.ConvTranspose2d(in_channels = self.latent_dim, out_channels = 256, kernel_size = 4, stride = 1, padding = 0),
             nn.BatchNorm2d(256),
             nn.ReLU(),
         )
@@ -58,7 +59,7 @@ class Generator(nn.Module):
 
 
 class Discriminator(nn.Module):
-    def __init__(self, img_shape):
+    def __init__(self):
         super().__init__()
 
         self.label_embed = nn.Embedding(10, 10)
