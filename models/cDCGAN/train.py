@@ -25,8 +25,8 @@ class Train(pl.LightningModule):
         self.latent_dim = self.hparams.model.latent_dim
         
         # networks
-        self.generator = Generator(latent_dim=self.latent_dim, img_shape=self.image_shape)
-        self.discriminator = Discriminator(img_shape= self.image_shape)
+        self.generator = Generator(latent_dim=self.latent_dim)
+        self.discriminator = Discriminator()
 
         self.loss= torch.nn.BCELoss()
 

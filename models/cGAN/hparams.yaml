@@ -5,11 +5,11 @@ datamodule:
   data_dir: "/media/youngwon/Neo/NeoChoi/Dataset"
   batch_size: 256
   image_shape: (1, 28, 28)
+
   resize32: False
   scaling: True
 
 model:
-  drop_prob : 0.5
   latent_dim: 100
 
 optim:

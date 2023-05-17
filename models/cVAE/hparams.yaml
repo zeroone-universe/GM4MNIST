@@ -4,6 +4,7 @@ default:
 datamodule:
   data_dir: "/media/youngwon/Neo/NeoChoi/Dataset"
   batch_size: 256
+  
   resize32: False
   scaling: False
 
