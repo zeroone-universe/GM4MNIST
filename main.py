@@ -25,7 +25,7 @@ def main(args):
     tb_logger = pl_loggers.TensorBoardLogger(hparams.train.logger_path, name=f"{args.model}_logs")
     
     train = Train(hparams)
-    mnist_datamodule = MNISTDataModule(hparams)
+    mnist_datamodule = MNISTDataModule(hparams, args)
     
     trainer=pl.Trainer(devices=hparams.train.devices, accelerator="gpu",
         max_epochs=hparams.train.max_epochs,
@@ -37,6 +37,7 @@ def main(args):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--model", type = str, required = True, help = "Enter model name (cGAN, CVAE, ...)")
+    parser.add_argument("--dataset", type = str, default = "mnist", help = "mnist or fmnist")
     args = parser.parse_args()
     
     main(args)
