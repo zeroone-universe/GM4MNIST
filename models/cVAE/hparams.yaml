@@ -3,7 +3,7 @@ default:
 
 datamodule:
   data_dir: "/media/youngwon/Neo/NeoChoi/Dataset"
-  batch_size: 256
+  batch_size: 144
   
   resize32: False
   scaling: False #True: [-1,1], False: [0,1]
@@ -17,4 +17,4 @@ optim:
 train:
   logger_path: "./logger"
   devices: 1
-  max_epochs: 100
+  max_epochs: 300
