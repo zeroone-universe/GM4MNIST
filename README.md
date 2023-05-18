@@ -10,6 +10,7 @@ The following generative models are implemented, or planned to be implemented:
 - Conditional Variational Autoencoder (cVAE)
 - Conditional Generative Adversarial Network (cGAN)
 - Conditional Deep Convolutional Generative Adversarial Network (cDCGAN)
+- Adversarial Autoencoder (WIP)
 - PixelCNN (WIP)
 - PixelRNN (WIP)
 - Diffusion (WIP)

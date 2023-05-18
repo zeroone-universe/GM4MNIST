@@ -118,7 +118,7 @@ class Train(pl.LightningModule):
     def on_validation_end(self):
         #sample 이미지 로깅
         z = torch.randn(10, self.latent_dim)
-        z = z.type_as(self.generator.CTout[0].weight)
+        z = z.to(self.device)
         
         labels = torch.tensor([0,1,2,3,4,5,6,7,8,9], device = z.device)
         
