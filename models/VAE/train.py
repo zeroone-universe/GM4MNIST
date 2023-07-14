@@ -71,7 +71,7 @@ class Train(pl.LightningModule):
         #sample 이미지 로깅
         z = torch.randn(10, self.latent_dim)
         z = z.to(self.device)
-        
+        print('ok')
         sample_imgs = self.model.vae_decoder(z)
         
         grid = torchvision.utils.make_grid(sample_imgs, nrow=5)
@@ -93,7 +93,6 @@ class Train(pl.LightningModule):
             for j, xi in enumerate(grid_y):
                 z_sample = torch.tensor([[xi, yi]])
                 z_sample = z_sample.repeat(16, 1)
-                # 예측할 모델에 텐서 전달하고 예측 결과 얻는 과정을 수정해야 합니다.
                 x_hat = self.model.vae_decoder(z_sample.to(self.device))
                 
                 digit = x_hat[0].reshape(28, 28)

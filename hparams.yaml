@@ -1,0 +1,68 @@
+VAE:
+  datamodule:
+    batch_size: 144
+    resize32: False
+    scaling: False #True: [-1,1], False: [0,1]
+
+  model:
+    latent_dim: 2
+
+  optim:
+    lr: 0.001
+
+  train:
+    max_epochs: 100
+
+
+cVAE:
+  datamodule:
+    batch_size: 144
+    resize32: False
+    scaling: False #True: [-1,1], False: [0,1]
+
+  model:
+    latent_dim: 2
+
+  optim:
+    lr: 0.001
+
+  train:
+    max_epochs: 100
+
+
+cGAN:
+  datamodule:
+    batch_size: 256
+    image_shape: (1, 28, 28)
+
+    resize32: False
+    scaling: True #True: [-1,1], False: [0,1]
+
+  model:
+    latent_dim: 100
+
+  optim:
+    lr: 0.0002
+    b1: 0.5
+    b2: 0.999
+
+  train:
+    max_epochs: 100
+
+cDCGAN:
+  datamodule:
+    batch_size: 256
+    resize32: True
+    scaling: True #True: [-1,1], False: [0,1] 
+
+  model:
+    latent_dim: 100
+
+  optim:
+    lr: 0.0002
+    b1: 0.5
+    b2: 0.999
+
+  train:
+    max_epochs: 100
+

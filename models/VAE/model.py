@@ -41,11 +41,6 @@ class VAEDecoder(nn.Module):
     def __init__(self, latent_dim = 2):
         super().__init__()
         
-        # self.linearin = nn.sequential(
-        #     nn.Linear(latent_dim, 64*14*14),
-        #     nn.ReLU(),
-        # )
-        
         self.linearin = nn.Sequential(
             nn.Linear(latent_dim, 32),
             nn.ReLU(),
@@ -65,6 +60,7 @@ class VAEDecoder(nn.Module):
         )
     
     def forward(self, x):
+        print(x.shape)
         x = self.linearin(x)
         x = x.view(-1, 64, 14, 14)
         x = self.convout(x)
@@ -86,10 +82,6 @@ class VAE(nn.Module):
         z = self.sampling(z_mean, z_logvar)
         x_hat = self.vae_decoder(z)
         return x_hat, z_mean, z_logvar
-    
-    def inference(self, n = 64):
-        output = self.vae_decoder(z)
-        return output
         
     def sampling(self, z_mean, z_logvar):
         std = torch.exp(z_logvar/2)
@@ -97,6 +89,6 @@ class VAE(nn.Module):
         return z_mean + eps * std
     
     def loss_function(self, x, x_hat, z_mean, z_logvar):
-        loss_bce = self.bce(x_hat, x)
-        loss_kld = -0.5 * torch.sum(1 + z_logvar - z_mean.pow(2) - z_logvar.exp())
+        loss_bce = self.bce(x_hat, x) / x.shape[0]
+        loss_kld = ( -0.5 * torch.sum(1 + z_logvar - z_mean.pow(2) - z_logvar.exp())) / x.shape[0]
         return loss_bce, loss_kld

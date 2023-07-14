@@ -11,10 +11,7 @@ The following generative models are implemented, or planned to be implemented:
 - Conditional Generative Adversarial Network (cGAN)
 - Conditional Deep Convolutional Generative Adversarial Network (cDCGAN)
 - Adversarial Autoencoder (WIP)
-- PixelCNN (WIP)
-- PixelRNN (WIP)
-- Diffusion (WIP)
-- Flow (WIP)
+- DDPM (WIP)
 
 ## Dataset
 
@@ -33,11 +30,14 @@ To run this code, you will need:
 - scipy==1.10.1
 - torch==2.0.0
 - torchvision==0.15.0
+- tensorboard
 
 
 To automatically install these libraries, run the following command:
 
 ```pip install -r requirements.txt```
+
+Alternatively, you can utilize the included Dockerfile.
 
 ## Usage
 
@@ -45,7 +45,7 @@ To run the code on your own machine, follow these steps:
 
 1. Open the hparams.yaml file located in the desired model directory. Modify the path for datasets, training configurations, and hyperparameters as needed.
 2. Run the 'main.py' file to start training the model.
-```python main.py -model <abbreviated name of model to use> --dataset <"mnist" or "fmnist"```
+```python main.py -m <abbreviated name of model to use> -t <"mnist" or "fmnist"> -p <dataset path> -d <devices>```
 
 ## Notes
 - This repository is intended for practice purposes, and there are no plans to implement inference files for the generative models. If you would like to see the output of the models, please refer to the TensorBoard log files.

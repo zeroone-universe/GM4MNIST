@@ -125,6 +125,6 @@ class cVAE(nn.Module):
         return z_mean + eps * std
     
     def loss_function(self, x, x_hat, z_mean, z_logvar):
-        loss_bce = self.bce(x_hat, x)
-        loss_kld = -0.5 * torch.sum(1 + z_logvar - z_mean.pow(2) - z_logvar.exp())
-        return loss_bce, loss_kld
+        loss_bce = self.bce(x_hat, x) / x.shape[0]
+        loss_kld = (-0.5 * torch.sum(1 + z_logvar - z_mean.pow(2) - z_logvar.exp())) / x.shape[0]
+        return loss_bce, loss_kld 

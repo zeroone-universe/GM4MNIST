@@ -7,11 +7,11 @@ from torchvision import datasets, transforms
 
 class MNISTDataModule(pl.LightningDataModule):
     def __init__(self, hparams, args):
-        self.data_dir = hparams.datamodule.data_dir
+        self.data_dir = args.path_dataset
         self.batch_size = hparams.datamodule.batch_size
         
         self.args = args
-        
+    
         if hparams.datamodule.resize32:
             self.transform = [transforms.Resize((32,32)), transforms.ToTensor(),]
                 
@@ -30,18 +30,18 @@ class MNISTDataModule(pl.LightningDataModule):
         
     def prepare_data(self):
         # download
-        if self.args.dataset == "mnist":
+        if self.args.type_dataset == "mnist":
             datasets.MNIST(self.data_dir, train=True, download=True)
             datasets.MNIST(self.data_dir, train=False, download=True)
-        elif self.args.dataset== "fmnist":
+        elif self.args.type_dataset== "fmnist":
             datasets.FashionMNIST(self.data_dir, train=True, download=True)
             datasets.FashionMNIST(self.data_dir, train=False, download=True)
         
     def setup(self, stage = None):
-        if self.args.dataset == "mnist":
+        if self.args.type_dataset == "mnist":
             self.dataset_train = datasets.MNIST(self.data_dir, train = True, transform = self.transform)
             self.dataset_val = datasets.MNIST(self.data_dir, train=False, transform = self.transform)
-        elif self.args.dataset == "fmnist":
+        elif self.args.type_dataset == "fmnist":
             self.dataset_train = datasets.FashionMNIST(self.data_dir, train = True, transform = self.transform)
             self.dataset_val = datasets.FashionMNIST(self.data_dir, train=False, transform = self.transform)
             

@@ -16,4 +16,5 @@ RUN apt autoremove
 RUN rm -rf /var/lib/apt/lists/* /tmp/* 
 
 WORKDIR /root/GM4MNIST
-# mount this repository path to /root/GM4MNIST when running container
+# mount this repository path to /root/GM4MNIST when running container, like
+# docker run -itd -v /home/GM4MNIST:/root/GM4MNIST --runtime nvidia -e NVIDIA_VISIBLE_DEVICES=0,1,2,3 gm4mnist:latest
