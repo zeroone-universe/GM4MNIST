@@ -43,7 +43,7 @@ Alternatively, you can utilize the included Dockerfile.
 
 To run the code on your own machine, follow these steps:
 
-1. Open the hparams.yaml file located in the desired model directory. Modify the path for datasets, training configurations, and hyperparameters as needed.
+1. Open the hparams.yaml. Modify the path for datasets, training configurations, and hyperparameters as needed.
 2. Run the 'main.py' file to start training the model.
 ```python main.py -m <abbreviated name of model to use> -t <"mnist" or "fmnist"> -p <dataset path> -d <devices>```
 
