@@ -71,7 +71,6 @@ class Train(pl.LightningModule):
         #sample 이미지 로깅
         z = torch.randn(10, self.latent_dim)
         z = z.to(self.device)
-        print('ok')
         sample_imgs = self.model.vae_decoder(z)
         
         grid = torchvision.utils.make_grid(sample_imgs, nrow=5)

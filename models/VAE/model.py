@@ -42,11 +42,12 @@ class VAEDecoder(nn.Module):
         super().__init__()
         
         self.linearin = nn.Sequential(
-            nn.Linear(latent_dim, 32),
+            nn.Linear(latent_dim, 32, dtype=torch.float32),
             nn.ReLU(),
-            nn.Linear(32, 64*14*14),
+            nn.Linear(32, 64*14*14, dtype=torch.float32),
             nn.ReLU(),
         )
+
         
         self.convout = nn.Sequential(
             nn.ConvTranspose2d(in_channels = 64, out_channels = 64, kernel_size = 3, stride = 1, padding = 1),
@@ -60,7 +61,7 @@ class VAEDecoder(nn.Module):
         )
     
     def forward(self, x):
-        print(x.shape)
+        x = x.to(torch.float32) #VAE.sampling gives float64 output. This is a workaround. 
         x = self.linearin(x)
         x = x.view(-1, 64, 14, 14)
         x = self.convout(x)
@@ -78,16 +79,18 @@ class VAE(nn.Module):
         self.bce = nn.BCELoss(reduction = 'sum')
         
     def forward(self, x):
+
         z_mean, z_logvar = self.vae_encoder(x)
-        z = self.sampling(z_mean, z_logvar)
+        z = self.sampling(z_mean.to(torch.float32), z_logvar.to(torch.float32))
         x_hat = self.vae_decoder(z)
         return x_hat, z_mean, z_logvar
         
     def sampling(self, z_mean, z_logvar):
         std = torch.exp(z_logvar/2)
         eps = torch.randn_like(std)
-        return z_mean + eps * std
-    
+        sample = z_mean + eps * std
+        return sample
+        
     def loss_function(self, x, x_hat, z_mean, z_logvar):
         loss_bce = self.bce(x_hat, x) / x.shape[0]
         loss_kld = ( -0.5 * torch.sum(1 + z_logvar - z_mean.pow(2) - z_logvar.exp())) / x.shape[0]

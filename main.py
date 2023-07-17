@@ -42,7 +42,7 @@ if __name__ == "__main__":
     parser.add_argument("-m", "--model", type = str, required = True, help = "Enter model name (cGAN, CVAE, ...)")
     parser.add_argument("-t", "--type_dataset", type = str, default = "mnist", help = "mnist or fmnist")
     parser.add_argument("-p", "--path_dataset", type = str, required = True, help = "Enter path to dataset")
-    parser.add_argument("-d", "--devices", type = list, default = [0], help = "Enter GPU number (0, 1, 2, ...)")
+    parser.add_argument("-d", "--devices", type = list, default = [0], help = "Enter GPU number ([0], [1], [0,1], ...)")
                  
     parser.add_argument("--logger_path", type = str, default = "./logger", help = "Enter logger path (default: ./logger)")       
     args = parser.parse_args()
